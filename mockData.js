@@ -16,3 +16,7 @@ var generateMockData = () => {
         dateTime: new Date()
     };
 };
+
+module.exports = {
+    generateMockData
+};
