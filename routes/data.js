@@ -1,4 +1,5 @@
 var express = require('express');
+var mockData = require('../mockData.js');
 var router = express.Router();
 
 
@@ -10,7 +11,7 @@ router.use(function timeLog(req, res, next){
 
 router.route("/")
     .get(function(req,res){
-        res.send("Get request");
+        res.send(mockData.generateMockData());
     })
     .post(function(req,res){
         var data = req.body.data;
