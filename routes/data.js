@@ -1,5 +1,8 @@
 var express = require('express');
 var router = express.Router();
+
+
+
 router.use(function timeLog(req, res, next){
     console.log("[Data] Route time : ", Date.now());
     next();
@@ -10,6 +13,8 @@ router.route("/")
         res.send("Get request");
     })
     .post(function(req,res){
+        var data = req.body.data;
+        console.log(data);
         res.send("Post request");
     }
 );
