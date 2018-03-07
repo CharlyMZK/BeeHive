@@ -4,9 +4,13 @@ var http = require('http');
 var https = require('https');
 var bodyParser = require('body-parser');
 var cors = require('cors');
-//var privateKey  = fs.readFileSync('sslcert/server.key', 'utf8');
-//var certificate = fs.readFileSync('sslcert/server.crt', 'utf8');
-//var credentials = {key: privateKey, cert: certificate};
+
+var options = {
+  key: fs.readFileSync('./certificats/ssl.key'),
+  cert: fs.readFileSync('./certificats/ssl.crt'),
+  requestCert: false,
+  rejectUnauthorized: false
+};
 
 var app = express();
 app.use(cors());
@@ -27,9 +31,8 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.use('/data',dataRoute);
 
 var httpServer = http.createServer(app);
-//var httpsServer = https.createServer(credentials, app);
+var httpsServer = https.createServer(options, app);
 
 
 httpServer.listen(8080);
-//httpsServer.listen(8443);
-
+httpsServer.listen(8443);
