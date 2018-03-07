@@ -9,7 +9,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+<<<<<<< HEAD
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "pm2": "^2.10.1",
+    "serialport": "^6.1.1",
+    "sf": "^0.1.9"
+=======
     "express": "^4.16.2",
     "serialport": "^6.1.1"
+>>>>>>> 33d6747295f0ca7223e0ea27da55f5bdb0ef6c67
   }
 }
