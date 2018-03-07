@@ -1,6 +1,7 @@
 var express = require('express');
 var mockData = require('../mockData.js');
 var router = express.Router();
+var fs = require("fs");
 
 
 
@@ -14,8 +15,12 @@ router.route("/")
         res.send(mockData.generateMockData());
     })
     .post(function(req,res){
-        var data = req.body.data;
-        console.log(data);
+
+        fs.appendFile("/tmp/beeData.json", JSON.stringify(req.body), 'utf8', function (err) {
+            if (err) {
+                return console.log(err);
+            }
+        }); 
         res.send("Post request");
     }
 );
