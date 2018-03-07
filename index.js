@@ -16,7 +16,7 @@ var app = express();
 app.use(cors())
 
 var dataRoute = require("./routes/data.js")
-
+app.use(express.static(__dirname));
 
 const SerialPort = require('serialport');
 const Readline = SerialPort.parsers.Readline;
@@ -43,6 +43,11 @@ console.log('data received: ' + data);
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.use('/data',dataRoute);
+
+//To server index.html page
+app.get('/', function (req, res) {
+  res.sendFile(__dirname + '/index.html');
+});
 
 var httpServer = http.createServer(app);
 var httpsServer = https.createServer(options, app);
