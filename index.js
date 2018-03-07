@@ -23,13 +23,10 @@ const SerialPort = require('serialport');
 const Readline = SerialPort.parsers.Readline;
 const port = new SerialPort('/dev/ttyACM0');
 const parser = new Readline();
-const thread = spawn(function(input, done) {
-    port.pipe(parser);
-    parser.on('data', console.log);
-    port.write('ROBOT PLEASE RESPOND\n');
-    done({ string : input.string, integer : parseInt(input.string) });
-  });
-
+ 
+port.pipe(parser);
+parser.on('data', console.log);
+port.write('ROBOT PLEASE RESPOND\n');
 
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
