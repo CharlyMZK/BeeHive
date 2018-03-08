@@ -48,7 +48,7 @@ if (cluster.isMaster) {
   port.pipe(parser);
   parser.on('data', function (line) {
     console.log('Recieved from arduino and saving : \n', line);
-    fs.appendFile('/tmp/beeData.json', JSON.stringify(line).replace(/[\\n\\r]/g, ''), 'utf8', function (err) {
+    fs.appendFile('/tmp/beeData.json', JSON.stringify(line).replace(/[\\n\\r]/g, '') + "\n", 'utf8', function (err) {
       if (err)
         return console.log(err);
       console.log('Successfully saved\n');

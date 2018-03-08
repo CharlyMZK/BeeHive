@@ -13,10 +13,9 @@ router.route('/')
         fs.readFile('/tmp/beeData.json', 'utf8', function read(err, data) {
             if (err)
                 return console.log(err);
-            console.log("DATA is like this : " + data + "\n");
-            var lines = data.trim().split('}');
+            var lines = data.trim().split('\n');
             var lastLine = lines.slice(-1)[0];
-            res.send(lastLine);
+            res.send(JSON.parse(lastLine));
         });
     })
     .post(function (req, res) {
