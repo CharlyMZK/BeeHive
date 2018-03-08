@@ -18,9 +18,9 @@ var app = express();
 app.use(cors());
 
 //To server index.html page
-app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/dist/index.html');
-});
+app.use('/', express.static("dist"));
+
+
 
 var dataRoute = require('./routes/data.js');
 
