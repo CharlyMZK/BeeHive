@@ -15,7 +15,7 @@ router.route('/')
                 return console.log(err);
             var lines = data.trim().split('\n');
             var lastLine = lines.slice(-1)[0];
-            res.send(lastLine.substring(1, lastLine.length-3));
+            res.send(lastLine);
         });
     })
     .post(function (req, res) {
