@@ -13,8 +13,7 @@ router.route('/')
         fs.readFile('/tmp/beeData.json', function read(datareq, err) {
             if (err)
                 return console.log(err);
-            else
-                res.send(data);
+            res.send(data);
         });
     })
     .post(function (req, res) {

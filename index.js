@@ -51,8 +51,7 @@ if (cluster.isMaster) {
     fs.appendFile('/tmp/beeData.json', JSON.stringify(line), 'utf8', function (err) {
       if (err)
         return console.log(err);
-      else
-        return console.log('Succesfully saved\n');
+      console.log('Successfully saved\n');
     });
   });
   port.write('ROBOT PLEASE RESPOND\n');
