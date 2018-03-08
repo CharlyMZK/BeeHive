@@ -10,10 +10,13 @@ router.use(function timeLog(req, res, next) {
 
 router.route('/')
     .get(function (req, res) {
-        fs.readFile('/tmp/beeData.json', function read(data, err) {
+        fs.readFile('/tmp/beeData.json', 'utf8', function read(err, data) {
             if (err)
                 return console.log(err);
-            res.send(data);
+            console.log("DATA is like this : " + data + "\n");
+            var lines = data.trim().split('}');
+            var lastLine = lines.slice(-1)[0];
+            res.send(lastLine);
         });
     })
     .post(function (req, res) {
