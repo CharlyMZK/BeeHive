@@ -10,7 +10,7 @@ router.use(function timeLog(req, res, next) {
 
 router.route('/')
     .get(function (req, res) {
-        fs.readFile('/tmp/beeData.json', function read(err, data) {
+        fs.readFile('/tmp/beeData.json', function read(datareq, err) {
             if (err)
                 return console.log(err);
             else
