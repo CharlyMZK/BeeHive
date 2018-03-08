@@ -20,7 +20,7 @@ app.use(cors());
 var dataRoute = require("./routes/data.js")
 
 if (cluster.isMaster) {
-    console.log(`Master ${process.pid} is running`);
+    console.log(`Server (${process.pid}) is running`);
     app.use(bodyParser.json()); // support json encoded bodies
     app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
     app.use('/data',dataRoute);
@@ -46,8 +46,8 @@ if (cluster.isMaster) {
     const parser = new Readline();
     port.pipe(parser);
     parser.on('data', console.log);
-    port.write('ROBOT PLEASE RESPOND\n');
-    console.log(`Worker ${process.pid} started`);
+    //port.write('ok\n');
+    console.log(`Serial port listener (${process.pid}) is running`);
   }
 
 
