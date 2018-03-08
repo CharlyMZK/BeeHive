@@ -17,6 +17,11 @@ var options = {
 var app = express();
 app.use(cors());
 
+//To server index.html page
+app.use('/', express.static("dist"));
+
+
+
 var dataRoute = require('./routes/data.js');
 
 if (cluster.isMaster) {
