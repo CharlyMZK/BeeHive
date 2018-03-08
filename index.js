@@ -19,7 +19,7 @@ app.use(cors());
 
 //To server index.html page
 app.get('/', function (req, res) {
-  res.sendFile(__dirname + 'dist/index.html');
+  res.sendFile(__dirname + '/dist/index.html');
 });
 
 var dataRoute = require('./routes/data.js');
