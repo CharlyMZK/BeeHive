@@ -12,6 +12,16 @@ router.use(function timeLog(req, res, next){
 
 router.route("/")
     .get(function(req,res){
+        res.send("Data get");
+    })
+    .post(function(req,res){
+        res.send("Post request");
+    }
+);
+
+
+router.route("/mock")
+    .get(function(req,res){
         res.send(mockData.generateMockData());
     })
     .post(function(req,res){
@@ -21,7 +31,7 @@ router.route("/")
                 return console.log(err);
             }
         }); 
-        res.send("Post request");
+        res.send("Mock post request");
     }
 );
 
