@@ -17,37 +17,45 @@ var options = {
 var app = express();
 app.use(cors());
 
-var dataRoute = require("./routes/data.js")
+var dataRoute = require('./routes/data.js');
 
 if (cluster.isMaster) {
-    console.log(`Master ${process.pid} is running`);
-    app.use(bodyParser.json()); // support json encoded bodies
-    app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
-    app.use('/data',dataRoute);
-    
-    var httpServer = http.createServer(app);
-    var httpsServer = https.createServer(options, app);
+  console.log(`Master ${process.pid} is running`);
+  app.use(bodyParser.json()); // support json encoded bodies
+  app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+  app.use('/data', dataRoute);
 
-    httpServer.listen(8080);
-    httpsServer.listen(8443);
-    
-    // Fork workers.
-    for (let i = 0; i < 1; i++) {
-      cluster.fork();
-    }
-  
-    cluster.on('exit', (worker, code, signal) => {
-      console.log(`worker ${worker.process.pid} died`);
-    });
-  } else {
-    const SerialPort = require('serialport');
-    const Readline = SerialPort.parsers.Readline;
-    const port = new SerialPort('/dev/ttyACM0');
-    const parser = new Readline();
-    port.pipe(parser);
-    parser.on('data', console.log);
-    port.write('ROBOT PLEASE RESPOND\n');
-    console.log(`Worker ${process.pid} started`);
+  var httpServer = http.createServer(app);
+  var httpsServer = https.createServer(options, app);
+
+  httpServer.listen(8080);
+  httpsServer.listen(8443);
+
+  // Fork workers.
+  for (let i = 0; i < 1; i++) {
+    cluster.fork();
   }
 
+  cluster.on('exit', (worker, code, signal) => {
+    console.log(`worker ${worker.process.pid} died`);
+  });
+} else {
+  const SerialPort = require('serialport');
+  const Readline = SerialPort.parsers.Readline;
+  const port = new SerialPort('/dev/ttyACM0');
+  const parser = new Readline();
 
+  port.pipe(parser);
+  parser.on('data', function (line) {
+    console.log('Recieved from arduino and saving :', line);
+    fs.appendFile('/tmp/beeData.json', JSON.stringify(req.body), 'utf8', function (err) {
+      if (err)
+        return console.log(err);
+      else
+        return console.log('Succesfully saved');
+    });
+  });
+  port.write('ROBOT PLEASE RESPOND\n');
+
+  console.log(`Worker ${process.pid} started`);
+}
