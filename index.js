@@ -47,12 +47,12 @@ if (cluster.isMaster) {
 
   port.pipe(parser);
   parser.on('data', function (line) {
-    console.log('Recieved from arduino and saving :', line);
+    console.log('Recieved from arduino and saving : \n', line);
     fs.appendFile('/tmp/beeData.json', JSON.stringify(req.body), 'utf8', function (err) {
       if (err)
         return console.log(err);
       else
-        return console.log('Succesfully saved');
+        return console.log('Succesfully saved\n');
     });
   });
   port.write('ROBOT PLEASE RESPOND\n');
